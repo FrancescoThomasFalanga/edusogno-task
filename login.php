@@ -56,7 +56,8 @@ if (isset($_SESSION["user"])) {
                 <input type="submit" value="Login" name="login" class="btn btn-primary">
             </div>
         </form>
-        <div><p>Not registered yet <a href="registration.php">Register Here</a></p></div>
+        <div><p class="mb-1">Not registered yet <a href="registration.php">Register Here</a></p></div>
+        <div><p>Forgot your password? <a href="reset_password.php">Reset Password</a></p></div>
     </div>
 </body>
 </html>
