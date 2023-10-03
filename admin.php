@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if (!isset($_SESSION["user"]) || $_SESSION["user"] !== "admin") {
+    header("Location: login.php"); 
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,11 +23,11 @@
         <header class="d-flex justify-content-between my-4">
             <h1>Event List</h1>
             <div>
+                <a href="index.php" class="btn btn-secondary">DashBoard</a>
                 <a href="create.php" class="btn btn-primary">Add New Event</a>
             </div>
         </header>
         <?php 
-        session_start();
         if (isset($_SESSION["create"])) {
             ?>
             <div class="alert alert-success">

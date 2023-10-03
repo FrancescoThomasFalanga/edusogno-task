@@ -1,4 +1,13 @@
 <?php
+session_start();
+
+if (!isset($_SESSION["user"]) || $_SESSION["user"] !== "admin") {
+    header("Location: login.php"); 
+    exit();
+}
+?>
+
+<?php
 include("db.php");
 
 if (isset($_POST["create"])) {
@@ -7,7 +16,6 @@ if (isset($_POST["create"])) {
     $description = mysqli_real_escape_string($conn, $_POST["description"]);
     $sql = "INSERT INTO events (title, attendees, description) VALUES ('$title', '$attendees', '$description')";
     if (mysqli_query($conn, $sql)) {
-        session_start();
         $_SESSION["create"] = "Event Added Successfully";
         header("Location: admin.php");
     } else {
@@ -22,7 +30,6 @@ if (isset($_POST["edit"])) {
     $id = mysqli_real_escape_string($conn, $_POST["id"]);
     $sql = "UPDATE events SET title = '$title', attendees = '$attendees', description = '$description' WHERE id = $id ";
     if (mysqli_query($conn, $sql)) {
-        session_start();
         $_SESSION["edit"] = "Event Updated Successfully";
         header("Location: admin.php");
     } else {

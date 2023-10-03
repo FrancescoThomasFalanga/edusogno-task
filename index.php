@@ -21,6 +21,11 @@ $userName = $_SESSION["user"];
 <body>
     <div class="container">
         <h1>Welcome to Dashboard <?php echo "<div class='text-warning'>$userName</div>"; ?></h1>
+        <?php 
+        if($userName === "admin") {
+            echo "<a href='admin.php' class='btn btn-secondary'>Event List</a>";
+        }
+        ?>
         <a href="logout.php" class="btn btn-warning">Logout</a>
     </div>
 </body>
