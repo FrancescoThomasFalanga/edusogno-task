@@ -4,7 +4,7 @@
 $hostName = "localhost";
 $dbUser = "root";
 $dbPassword = "root";
-$dbName = "edusogno-task";
+$dbName = "edusogno";
 
 $conn = mysqli_connect($hostName, $dbUser, $dbPassword, $dbName);
 
