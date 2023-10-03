@@ -1,53 +1,3 @@
-<?php
-session_start();
-
-if (isset($_SESSION["user"])) {
-    header("Location: index.php");
-}
-
-require_once "db.php";
-require 'vendor/autoload.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-if (isset($_POST["reset"])) {
-    $email = $_POST["email"];
-
-
-    $sql = "SELECT * FROM users WHERE email = '$email' ";
-    $result = mysqli_query($conn, $sql);
-    $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
-    $token = bin2hex(random_bytes(32));
-
-    $sql = "UPDATE users SET reset_token = '$token' WHERE email = '$email'";
-    mysqli_query($conn, $sql);
-
-    $mail = new PHPMailer(true);
-
-    $mail->isSMTP();
-    $mail->Host = 'smtp.example.com';
-    $mail->SMTPAuth = true;
-    $mail->Username = 'your_email@example.com';
-    $mail->Password = 'your_email_password';
-    $mail->SMTPSecure = 'tls';
-    $mail->Port = 587;
-
-
-    $mail->setFrom('your_email@example.com', 'Your Name');
-    $mail->addAddress($email, $user["full_name"]);
-
-
-    $mail->Subject = 'Password Reset Request';
-    $mail->Body    = 'To reset your password, click the following link: <a href="http://example.com/reset_password_confirm.php?token=' . $token . '">Reset Password</a>';
-
-
-    $mail->send();
-
-}
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,14 +12,14 @@ if (isset($_POST["reset"])) {
 <body>
     <div class="container">
         <div>
-            <h4>Send Email</h4>
+            <h4>Forgot Password</h4>
         </div>
-        <form action="reset_password.php" method="post">
+        <form action="send-password-reset.php" method="post">
             <div class="form-group">
                 <input type="email" placeholder="Enter Email:" name="email" class="form-control">
             </div>
             <div class="form-btn">
-                <input type="submit" value="Reset Password" name="reset" class="btn btn-primary">
+                <input type="submit" value="Send" name="reset" class="btn btn-primary">
             </div>
         </form>
     </div>
