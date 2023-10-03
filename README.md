@@ -23,3 +23,18 @@ password: Edusogno123
 ***Admin:***
 email: admin@gmail.com
 password: password
+
+
+### P.S.
+
+*As regards sending the email, I used PHPMailer since mail() appears to be a bit deprecated. To get everything sorted out properly, follow the steps below:*
+
+- activate 2FA on your gmail account, to do this: (click on the profile photo, manage your google account, security)
+- click on 2FA once activated and scroll down to the end where Password for apps will be written
+- create a new password and keep it
+
+Replace the following values ​​in the file: send-password-reset.php , with your email and your generated password.
+
+- $mail->Username = 'yourEmail';
+- $mail->Password = 'passwordCreated';
+- $mail->addAddress("yourEmail", "yourName");
