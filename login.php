@@ -34,6 +34,7 @@ if (isset($_SESSION["user"])) {
                 if (password_verify($password, $user["password"])) {
                     session_start();
                     $_SESSION["user"] = $user["full_name"];
+                    $_SESSION["email"] = $user["email"];
                     header("Location: index.php");
                     die();
                 } else {

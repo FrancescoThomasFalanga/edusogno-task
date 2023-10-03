@@ -28,5 +28,51 @@ $userName = $_SESSION["user"];
         ?>
         <a href="logout.php" class="btn btn-warning">Logout</a>
     </div>
+
+    <div class="my-5">
+        <h2 class="text-center mb-5">Event List</h2>
+        <div class="container-lg d-flex flex-row flex-wrap justify-content-center">
+            <?php
+            include("db.php");
+            $email = $_SESSION["email"];
+            $sql = "SELECT * FROM events WHERE attendees LIKE '%$email%' ";
+            $result = mysqli_query($conn, $sql);
+            // $row = mysqli_fetch_array($result);
+
+            if ($result->num_rows > 0) {
+                
+                while ($row = mysqli_fetch_array($result)) {
+                    $eventTitle = $row['title'];
+                    $eventDescription = $row['description'];
+                    $eventAttendees = $row['attendees'];
+            ?>
+                    <div class="card container">
+                        <h3 class="card_title">
+                            Title: <?= $eventTitle; ?>
+                        </h3>
+                        <span class="my-2">
+                            Description: <?= $eventDescription; ?>
+                        </span>
+                        <span class="my-2">
+                            Attendees: <?= $eventAttendees; ?>
+                        </span>
+                        <button class="btn btn-primary">
+                            Join
+                        </button>
+                    </div>
+                <?php
+                }
+            } else {
+                ?>
+                <div class="card_wrapper">
+                    <h3 class="card_title">
+                        No Events Yet
+                    </h3>
+                </div>
+        </div>
+    </div>
+    <?php
+            }
+    ?>
 </body>
 </html>
