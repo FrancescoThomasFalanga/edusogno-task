@@ -5,6 +5,7 @@ if (isset($_SESSION["user"])) {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,6 +47,13 @@ if (isset($_SESSION["user"])) {
         ?>
 
         <form action="login.php" method="post">
+
+            <?php
+            if (isset($_GET["password_changed"]) && $_GET["password_changed"] == 1) {
+                echo "<div class='alert alert-success'>Password changed successfully. You can now login.</div>";
+            }
+            ?>
+
             <div class="form-group">
                 <input type="email" placeholder="Enter Email:" name="email" class="form-control">
             </div>
